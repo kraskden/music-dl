@@ -20,6 +20,9 @@ class App:
         songs = source.get_songs(source_url)
         songs = songs if download_all else select_songs(songs)
         for song in songs:
+            if isinstance(song, DownloadableSong):
+                self._download_and_save_song(song)
+                continue
             try:
                 candidates = self.downloader.search_song(song)
                 self._download_candidates(candidates, song)
@@ -42,8 +45,10 @@ class App:
         if target is None:
             print(f"[WARN] Skip downloading")
             return False
-        data = target.download()
-        self.lib.saveMP3(data, target)
-
-        print(f'[OK] {target}')
+        self._download_and_save_song(target)
         return True
+
+    def _download_and_save_song(self, song: DownloadableSong):
+        data = song.download()
+        self.lib.saveMP3(data, song)
+        print(f'[OK] {song}')
