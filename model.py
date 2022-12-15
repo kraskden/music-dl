@@ -31,6 +31,11 @@ class Song:
         return duration_matches and len(common_authors) > 0 and self.title == song.title
 
 
+class DownloadableSong(Song):
+
+    def download(self):
+        pass
+
 _ch_filter_pattern = re.compile(r'[\W_]')
 def _normalize_name(name: Optional[str]) -> Optional[str]:
     if name is None:

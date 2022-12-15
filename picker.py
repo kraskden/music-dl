@@ -4,10 +4,10 @@ import subprocess
 import tempfile
 from typing import IO, Optional
 
-from model import Song
+from model import Song, DownloadableSong
 
 
-def pick_download_candidate(reference: Optional[Song], candidates: list[Song]) -> Optional[Song]:
+def pick_download_candidate(reference: Optional[Song], candidates: list[DownloadableSong]) -> Optional[DownloadableSong]:
     if reference is not None:
         ref_normalized = reference.normalize()
         for song in candidates:
@@ -59,7 +59,7 @@ def _write_songs(f: IO, songs: list[Song]):
         f.write(f'{idx + 1}: {song}\n')
 
 
-def _interactive_select(reference: Song, candidates: list[Song], page_size: int) -> Optional[Song]:
+def _interactive_select(reference: Song, candidates: list[DownloadableSong], page_size: int) -> Optional[DownloadableSong]:
     page = 1
     total_elements = len(candidates)
     total_pages = math.ceil(total_elements * 1.0 / page_size)

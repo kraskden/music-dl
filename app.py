@@ -3,7 +3,7 @@ from typing import Optional
 
 from downloader.downloader import SongNotFoundError, QueryNotFoundError
 from lib import Lib
-from model import Song
+from model import Song, DownloadableSong
 from picker import select_songs, pick_download_candidate
 from plugin import load_dl, load_source
 
@@ -37,12 +37,12 @@ class App:
             except (EOFError, KeyboardInterrupt):
                 break
 
-    def _download_candidates(self, candidates: list[Song], reference: Optional[Song]) -> bool:
+    def _download_candidates(self, candidates: list[DownloadableSong], reference: Optional[Song]) -> bool:
         target = pick_download_candidate(reference, candidates)
         if target is None:
             print(f"[WARN] Skip downloading")
             return False
-        data = self.downloader.download(target)
+        data = target.download()
         self.lib.saveMP3(data, target)
 
         print(f'[OK] {target}')
