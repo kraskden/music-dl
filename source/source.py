@@ -1,5 +1,6 @@
 from model import Song
 
+
 class Source:
 
     def __init__(self, *args, **kwargs):
@@ -10,4 +11,3 @@ class Source:
 
     def get_songs(self, location) -> list[Song]:
         pass
-

@@ -21,10 +21,11 @@ def _to_song(node: PageElement):
     url = node.find_next("a", class_="track__download-btn")["href"]
     return Song(title, [artist], time, {"url": url})
 
+
 @plugin
 class HitmoDownloader(Downloader):
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.url = kwargs["url"] if "url" in kwargs else "https://eu.hitmotop.com/search"
 

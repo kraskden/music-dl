@@ -18,7 +18,9 @@ def _to_song(node: PageElement):
 
     return Song(title, artists, time, None)
 
+
 _location_matcher = re.compile(r'^https://music\.yandex\..+/playlists/[0-9]+$')
+
 
 @plugin
 class YandexMusic(Source):

@@ -37,5 +37,6 @@ def _normalize_name(name: Optional[str]) -> Optional[str]:
         return None
     return _ch_filter_pattern.sub('', name).lower()
 
+
 def minmax(a, b):
     return min(a, b), max(a, b)

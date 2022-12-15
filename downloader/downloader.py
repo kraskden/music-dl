@@ -6,15 +6,15 @@ from model import Song
 def download(url: str) -> bytes:
     return requests.get(url).content
 
-class DownloaderNotFoundError(Exception):
+class NotFoundError(Exception):
     pass
 
-class SongNotFoundError(DownloaderNotFoundError):
+class SongNotFoundError(NotFoundError):
 
     def __init__(self, song: Song):
         self.song = song
 
-class QueryNotFoundError(DownloaderNotFoundError):
+class QueryNotFoundError(NotFoundError):
 
     def __init__(self, query: str):
         self.query = query

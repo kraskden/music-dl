@@ -4,6 +4,7 @@ import re
 from model import Song
 from mutagen.id3 import ID3, TIT2, TPE1
 
+
 class Lib:
 
     def __init__(self, dir_path):
@@ -26,6 +27,7 @@ def _get_path(song: Song) -> str:
     author = song.author[0] if len(song.author) > 0 else None
     name = f'{author}__{song.title}.mp3' if author is not None else f'{song.title}'
     return _replace_whitespaces(name)
+
 
 _ws_regex = re.compile(r'\s')
 def _replace_whitespaces(text: str):

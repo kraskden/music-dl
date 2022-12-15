@@ -11,6 +11,7 @@ def plugin(cls):
     cls._PLUGIN_ = True
     return cls
 
+
 def load_source(location, *args, **kwargs) -> Source:
     for name in _get_module_names('source'):
         try:
@@ -21,6 +22,7 @@ def load_source(location, *args, **kwargs) -> Source:
         except ValueError:
             continue
     raise ValueError(f"No module is available for {location}")
+
 
 def get_plugins_names(base_package, base_class):
     result = []
@@ -33,19 +35,24 @@ def get_plugins_names(base_package, base_class):
             continue
     return result
 
+
 def load_dl(name, *args, **kwargs) -> Downloader:
     return _load_plugin(_load_module('downloader', name), Downloader, *args, **kwargs)
+
 
 def _get_module_names(component):
     directory = (Path(__file__)).parent.absolute() / component
     return [name for _, name, _ in pkgutil.iter_modules([str(directory)])]
 
+
 def _load_module(package, name):
     return importlib.import_module(f'{package}.{name}', '.')
+
 
 def _load_plugin(module, base_class, *args, **kwargs):
     cls = _get_plugin(module, base_class)
     return cls(*args, **kwargs)
+
 
 def _get_plugin(module, base_class):
     classes = inspect.getmembers(module, inspect.isclass)

@@ -37,7 +37,6 @@ class App:
             except (EOFError, KeyboardInterrupt):
                 break
 
-
     def _download_candidates(self, candidates: list[Song], reference: Optional[Song]) -> bool:
         target = pick_download_candidate(reference, candidates)
         if target is None:
