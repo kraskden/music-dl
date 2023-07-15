@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser.add_argument("target", help="Target directory")
     parser.add_argument("-i", dest="source", help="Source url")
     parser.add_argument("-d", default="hitmo", dest="downloader", help="Which downloader to use", choices=downloaders)
-    parser.add_argument("-a", default=False, dest="download_all", action='store_true')
+    parser.add_argument("-a", default=False, dest="download_all", help="Download all", action='store_true')
 
     args = parser.parse_args()
     app = App(args.target, args.downloader)
