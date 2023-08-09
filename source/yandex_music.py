@@ -2,19 +2,22 @@ import re
 
 import requests as requests
 from bs4 import BeautifulSoup as Bs, PageElement
+from datetime import datetime, timedelta
 
 from model import Song
 from plugin import plugin
 from source.source import Source
-from util import to_timedelta
 
+def to_timedelta(text):
+    date_time = datetime.strptime(text, '%M:%S')
+    return timedelta(minutes=date_time.minute, seconds=date_time.second)
 
 def _to_song(node: PageElement):
     title = node.find_next(class_="d-track__title").text.strip()
     artists_node = node.find_next(class_="d-track__artists")
     artists = [n["title"] for n in artists_node.contents if n.name == "a"]
     info_node = node.find_next(class_="d-track__info")
-    time = to_timedelta(info_node.span.text.strip())
+    time = to_timedelta(info_node.span.text.strip()) 
 
     return Song(title, artists, time, None)
 

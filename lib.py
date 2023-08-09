@@ -16,11 +16,17 @@ class Lib:
         path = os.path.join(self.dir_path, _get_path(meta))
         with open(path, 'w+b') as f:
             f.write(data)
-        audion = ID3(path)
-        audion.clear()
-        audion.add(TIT2(text=meta.title))
-        audion.add(TPE1(text=meta.author))
-        audion.save()
+        try:
+            audion = ID3(path)
+            audion.clear()
+            audion.add(TIT2(text=meta.title))
+            audion.add(TPE1(text=meta.author))
+            audion.save()
+        except:
+            audion = ID3()
+            audion.add(TIT2(text=meta.title))
+            audion.add(TPE1(text=meta.author))
+            audion.save(path) 
 
 
 def _get_path(song: Song) -> str:

@@ -1,15 +1,18 @@
 import requests
 from bs4 import BeautifulSoup as Bs, PageElement
+from datetime import datetime, timedelta
 
 from downloader.downloader import Downloader, SongNotFoundError, download, QueryNotFoundError, UrlDownloadableSong
 from model import Song, DownloadableSong
 from plugin import plugin
-from util import to_timedelta
 
 """
 Download music from https://in.hitmo.top
 """
 
+def to_timedelta(text: str) -> timedelta:
+    seconds = int(text)
+    return timedelta(minutes=(seconds // 60), seconds=(seconds % 60))
 
 def _to_song(node: PageElement) -> DownloadableSong:
     title = node["data-title"]

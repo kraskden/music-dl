@@ -47,7 +47,6 @@ def _read_filtered_songs(f: IO, songs: list[Song]) -> list[Song]:
 
     return result
 
-
 def _write_songs(f: IO, songs: list[Song]):
     f.write((
         "# Select songs to download\n"
